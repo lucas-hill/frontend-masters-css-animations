@@ -19,8 +19,16 @@
     </form>
   </body>
   <script>
-    const form = document.querySelector('.ui-form');
+    const formEl = document.querySelector('.ui-form');
 
-    // ...
+    function setState(state) {
+      formEl.dataset.state = state;
+
+      if(state === 'subscribing') {
+        setTimeout(() => {
+          setState('error')
+        }, 1000);
+      }
+    }
   </script>
 </html>

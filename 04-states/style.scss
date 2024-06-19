@@ -35,15 +35,18 @@ body {
   }
 
   &[data-state='subscribe'] {
-    // Add an animation here
+    animation: slide-up 1s both;
   }
 
   &[data-state='success'] {
-    // Change the color and/or add an animation here
+    --color: rgb(20, 146, 20);
+    --duration: 1s;
+    animation: squish-and-jump var(--duration) both;
   }
 
   &[data-state='error'] {
-    // Change the color and/or add an animation here
+    --color: rgb(185, 31, 31);
+    animation: shake 1s both;
   }
 
   > .ui-input,
@@ -120,5 +123,36 @@ body {
   from,
   to {
     transform: none;
+  }
+
+}
+
+@keyframes squish-and-jump {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: scale(.8)
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

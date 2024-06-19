@@ -37,6 +37,9 @@ body {
   border: 2px solid var(--color);
   border-radius: 0.25rem;
   outline: none;
+  // my additions 
+  transition-property: border-color; 
+  transition-duration: 0.3s; 
 }
 
 .ui-button {
@@ -48,6 +51,19 @@ body {
   border-radius: 0.25rem;
   height: var(--input-height);
   background-color: var(--color);
+  // my additions 
+  transition-property: background-color, opacity, transform; 
+  transition-duration: 0.3s; 
+  transition-timing-function: linear, linear, ease-in-out;
+}
+
+:hover.ui-button {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+
+:active.ui-button {
+  transform: translateY(10%);
 }
 
 [data-show]:not([data-active]) {
