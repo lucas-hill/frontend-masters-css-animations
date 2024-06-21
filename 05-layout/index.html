@@ -27,9 +27,50 @@
     const captionEl = document.querySelector('.ui-caption');
     const appEl = document.querySelector('#app');
 
+    function flip(fn, firstEls, lastEls = firstEls) {
+      const firstRects = firstEls.map(el => {
+        return el.getBoundingClientRect();
+      })
+
+      //This is the fuction that will make the transformation of the componet
+      fn();
+
+      requestAnimationFrame(() => {
+        const lastRects = lastEls.map(el => {
+          return el.getBoundingClientRect();
+        });
+
+        lastRects.forEach((lastRect, i) => {
+          const firstRect = firstRects[i];
+          const lastEl = lastEls[i];
+
+          const dx = firstRect.x - lastRect.x;
+          const dy = firstRect.y - lastRect.y;
+          const dw = firstRect.width / lastRect.width;
+          const dh = firstRect.height / lastRect.height;
+
+          lastEl.style.setProperty('--dx', dx);
+          lastEl.style.setProperty('--dy', dy);
+          lastEl.style.setProperty('--dw', dw);
+          lastEl.style.setProperty('--dh', dh);
+
+          //Invert
+          lastEl.dataset.flip = 'invert';
+
+          requestAnimationFrame(() => {
+            lastEls.forEach(lastEl => {
+              lastEl.dataset.flip = 'play';
+            });
+          });
+
+        });
+      })
+    }
+
     appEl.addEventListener('click', () => {
-      app.dataset.state =
-        app.dataset.state === 'collapsed' ? 'expanded' : 'collapsed';
+      flip(() => {
+        app.dataset.state = app.dataset.state === 'collapsed' ? 'expanded' : 'collapsed';
+      }, [figureEl, captionEl]);
     });
     // ...
   </script>
